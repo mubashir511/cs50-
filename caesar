@@ -12,11 +12,14 @@ int main(int argc, string argv[])
     {
         // Getting input string 
         string s = argv[1];
+        
         // Finding the length of the string 
         int c = strlen(s);
+        
         // split input string into digits
         char chr[c]; 
         int dig_unit = 0;
+        
         // Checking for numeric digits 
         for (int i = 0; i < c; i++)
         {
