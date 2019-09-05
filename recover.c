@@ -25,16 +25,84 @@ int main(int argc, char *argv[])
         return 1;
     }
     // Allocating space for buffer
-    typedef unsigned char BYTE;
-    BYTE *buffer = malloc (512);
+    unsigned char buffer[512];
+
+    // Tracking variables
+    long byte_count = 1;
+    int jpeg_count = 0;
+    int file_open = 0;
+
+    // Initialize file name and img_file
+    char filename[10];
+    FILE *img_file;
 
     // Read block from file
-    do
+    while (fread(&buffer, 512, 1, inptr))
     {
-        fread(buffer, 1, 512 ,inptr);
-        printf("X ");
+        // Start of a jpeg file
+        if (buffer[0] == 0xff &&
+            buffer[1] == 0xd8 &&
+            buffer[2] == 0xff &&
+            (buffer[3] & 0xf0) == 0xe0)
+        {
+            // If a jpeg file is already open
+            if (file_open)
+            {
+                // close the previously opened file
+                fclose(img_file);
+                // Identifer that file closed now
+                file_open = 0;
+
+                // create new file name
+                sprintf(filename, "%03d.jpg", jpeg_count);
+
+                // apply and open this new file
+                img_file = fopen(filename, "a");
+
+                // set openFileTracker to true
+                file_open = 1;
+
+                // Increment our file naming tracker
+                jpeg_count++;
+            }
+            if (!file_open)
+            {
+                // create new file name
+                sprintf(filename, "%03d.jpg", jpeg_count);
+
+                // apply and open this new file
+                img_file = fopen(filename, "w");
+
+                // set openFileTracker to true
+                file_open = 1;
+
+                // Increment our file naming tracker
+                jpeg_count++;
+            }
+            // write the buffer to the file
+            fwrite(&buffer, 512, 1, img_file);
+        }
+        else
+        {
+            // Not the star of jpeg file
+            if (file_open)
+            {
+                // Write the block to the file
+                fwrite(&buffer, 512, 1, img_file);
+            }
+        }
+        byte_count++;
     }
-    while (fread(&buffer, 512, 1 ,inptr) == 512);
-    // Free the buffer space
-    free(buffer);
+
+    printf("total bytes = %li\n", byte_count);
+    printf("jgeg# %i\n", jpeg_count);
+
+    // While loop terminated:  we have reached EOF
+    // Close the initial image file
+    fclose(inptr);
+
+    // close any open jpeg file
+    fclose(img_file);
+
+    return 0;
 }
