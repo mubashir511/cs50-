@@ -14,11 +14,14 @@ int main(int argc, string argv[])
     }
     // Getting input string
     string s = argv[1];
+
     // Finding the length of the string
     int c = strlen(s);
+
     // Initiallizing an integer array for keys
     int key[c];
     int key_index = 0;
+
     // If only one argument is present
     if (argc == 2)
     {
@@ -46,7 +49,7 @@ int main(int argc, string argv[])
                 printf("Usage: ./vigenere key\n");
                 return 1;
             }
-            printf("key: %i\n", key[i]);
+            //printf("key: %i\n", key[i]);
         }
     }
     else
@@ -115,3 +118,6 @@ int main(int argc, string argv[])
     }
     printf("ciphertext: %s\n", p_tx);
 }
+
+
+
