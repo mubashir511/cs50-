@@ -39,14 +39,14 @@ int main(int argc, string argv[])
             }
             else
             {
-                printf("Usage: ./crack password");
+                printf("Usage: ./crack password\n");
                 return 1;
             }
         }
     }
     else
     {
-        printf("Usage: ./crack password");
+        printf("Usage: ./crack password\n");
         return 1;
     }
     // Computing hash value of the give valu
