@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- http://getbootstrap.com/docs/4.1/content/typography/ -->
+    <h1 class="mb-3">Sheet</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Roll no#</th>
+          <th scope="col">Batch</th>
+          <th scope="col">Department</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Satisfied with the form ?</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for file_data in get_form %}
+        <tr>
+          <th scope="row">{{file_data['count']}}</th>
+          <td>{{file_data['name']}}</td>
+          <td>{{file_data['rollNo']}}</td>
+          <td>{{file_data['batch']}}</td>
+          <td>{{file_data['department']}}</td>
+          <td>{{file_data['email']}}</td>
+          <td>{{file_data['phoneNo']}}</td>
+          <td>{{file_data['satisfaction']}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+{% endblock %}
