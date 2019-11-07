@@ -239,8 +239,10 @@ def register():
         elif not request.form.get("confirmation"):
             return apology("must confirm password", 400)
 
+        print(((request.form.get("username")).isalnum()) or ((request.form.get("username")).isalpha()))
+
         # Ensure username is alphanumeric string
-        if not (request.form.get("username")).isalnum():
+        if (((request.form.get("username")).isalnum()) or ((request.form.get("username")).isalpha())) == False:
             return apology("must provide aplhanumeric username", 403)
 
         # If passwords donot match
@@ -379,7 +381,7 @@ def changeUsername():
             return apology("must provide password", 403)
 
         # Ensure username is alphanumeric string
-        if not (request.form.get("new_username")).isalnum():
+        if (((request.form.get("new_username")).isalnum()) or ((request.form.get("new_username")).isalpha())) == False:
             return apology("must provide aplhanumeric username", 403)
 
         # acquire hash value of present user
