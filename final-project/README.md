@@ -1,1 +1,1 @@
-
+In this project, I have made a small e-commerce website that is used to buy 3 grocery products i.e. rice, sugar, and flour. The website has a history page that shows past shopping data with time and date. Each account is initially credited with 10000Rs from which he can buy goods, the prices of goods has been given a separate page called "prices".
